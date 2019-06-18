@@ -1,0 +1,70 @@
+ 
+    <!DOCTYPE html>
+      <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+      <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+      <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+      <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+      <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Lazy Line Painter</title>
+        <meta name="description" content="A modern JS library for SVG path animation">
+
+        <!-- css  -->
+        <style>
+
+          body, html {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top:0;
+            left:0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+            #losango {
+              width: 70vw;
+              height: 70vh;
+              position: relative;
+              overflow: visible;
+            }
+        </style>
+     
+        <!-- Include lazylinepainter -->
+        <script src="lazy-line-painter-1.9.6.min.js"></script>
+
+        <script type="text/javascript">
+
+          (function(){ 
+
+            document.onreadystatechange = () => {
+
+              if (document.readyState === 'complete') {
+                        
+                /**
+                 * Setup your Lazy Line element.
+                 * see README file for more settings
+                 */
+
+                let el = document.querySelector('#losango');
+                let myAnimation = new LazyLinePainter(el, {"ease":"easeLinear","strokeWidth":15.7,"strokeOpacity":1,"strokeColor":"#BDC3C8","strokeCap":"square","strokeDash":"5, 5","delay":340}); 
+                myAnimation.paint(); 
+              }
+            }
+
+          })();
+
+        </script>
+      </head>
+
+      <body>
+        <svg version="1.0" id="losango" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1199.53px" height="1199.529px" viewBox="0 0 1199.53 1199.529" enable-background="new 0 0 1199.53 1199.529" xml:space="preserve" data-llp-composed="true" class="lazy-line-painter">
+<g>
+	<path d="M515.721,1153.747c-17.425,0-33.682-8.077-45.776-22.741L114.554,700.107c-24.287-29.451-24.287-77.369,0-106.819&#10;&#9;&#9;l355.391-430.899c12.095-14.664,28.352-22.74,45.776-22.74c17.426,0,33.683,8.076,45.776,22.74l355.391,430.899&#10;&#9;&#9;c24.287,29.45,24.287,77.368,0,106.819l-355.391,430.898C549.403,1145.67,533.146,1153.747,515.721,1153.747z M515.721,153.648&#10;&#9;&#9;c-13.168,0-25.59,6.268-34.976,17.648L125.354,602.196c-20.236,24.537-20.236,64.465,0,89.003l355.391,430.898&#10;&#9;&#9;c9.386,11.381,21.808,17.649,34.976,17.649c13.169,0,25.59-6.269,34.976-17.649l355.391-430.898&#10;&#9;&#9;c20.236-24.538,20.236-64.466,0-89.003L550.696,171.297C541.311,159.916,528.89,153.648,515.721,153.648z" data-llp-id="losango-0" data-llp-duration="4780" data-llp-delay="0" fill-opacity="0" style=""/>
+</g>
+</svg>
+      </body>
+    </html>
