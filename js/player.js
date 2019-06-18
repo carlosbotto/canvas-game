@@ -5,8 +5,8 @@ class Player {
     this.y = 700;
     this.vx = 0;
     this.vy = 0;
-    this.life = 3;
-    this.angle = 0
+    this.angle = 0;
+    this.life = 10;
 
     this.img = new Image();
     this.img.src = "img/losangoBranco.png";
@@ -50,13 +50,13 @@ class Player {
   draw(ctx) {
     ctx.save(); // Save the current context state
 
-    ctx.fillStyle = "red";
+    ctx.fillStyle = "bisque";
 
     if (DEBUG) {
       ctx.save();
-      ctx.globalAlpha = 0.5;
+      ctx.globalAlpha = 0.2;
       ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+      ctx.arc(this.x, this.y, 40, 0, 2 * Math.PI);
       ctx.fill();
       ctx.restore();
     }
@@ -67,12 +67,14 @@ class Player {
     let size = 2.7 * this.radius;
     ctx.drawImage(this.img, -size / 2, -size / 2, size, size);
 
-    // TODO: draw the number of life on the screen
+
+    
+
 
     ctx.restore(); // Restore the context state from the begining
   }
   update() {
-    this.angle += 0.01
+    this.angle += 0.05
     // When there is a vx and a vy, there are reduced a little bit to keep the same speed and make the movement more natural
     let vx = this.vx;
     let vy = this.vy;
@@ -86,7 +88,7 @@ class Player {
     if (this.x - this.radius < 0) this.x = this.radius;
     if (this.x + this.radius > CANVAS_WIDTH)
       this.x = CANVAS_WIDTH - this.radius;
-    if (this.y - this.radius < 0) this.y = this.radius;
+    if (this.y - this.radius < 80) this.y = 80 + this.radius;
     if (this.y + this.radius > CANVAS_HEIGHT)
       this.y = CANVAS_HEIGHT - this.radius;
   }

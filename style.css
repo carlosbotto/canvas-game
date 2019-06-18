@@ -1,5 +1,6 @@
 body {
   display: flex;
+  flex-direction:column; 
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -8,6 +9,9 @@ body {
   
 } 
 
+h2{
+  margin-bottom: -5px;
+}
 
 
 canvas {
@@ -15,6 +19,7 @@ canvas {
   border-radius: 20px;
   background-color:black;    
   max-width: 95vw;
-  max-height: 95vh;
+  max-height: 90vh;
+  display: block;
 } 
 
