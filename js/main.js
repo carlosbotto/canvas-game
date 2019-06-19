@@ -13,6 +13,7 @@ const PLAYER_VELOCITY = 10;
 const NB_OF_STARS = 300;
 
 
+
 // Global variables
 let frame = 0; // The frame counter
 let score = 0;
@@ -20,19 +21,30 @@ let bg = new Background();
 let player = new Player();
 let bars = [new Bar()];
 let bonus = [new Bonus()]
-const framesBetweenBars = 7;
-const framesBetweenBonus = 60;
-
+let framesBetweenBars = 7;
+let framesBetweenBonus = 50;
+//let levelNumber = "";
 let speedFactor = 1; // Example: When the speed factor is 2, the background and the bars are twice faster
+let audio = new Audio()
+audio.src = "img/Tangerine Dream   Love On A Real Train New Version HD.mp3";
+audio.play();
+
 
 function animation() {
+  //drawReset (ctx)
+  if(player.life >= 1) { 
   updateEverything();
-  drawEverything(ctx);
+  drawEverything(ctx)
+  }
+  else if (player.life < 1) {
+    drawEnd (ctx);
+  }
   window.requestAnimationFrame(animation);
 }
 animation();
 
 function drawEverything(ctx) {
+  
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   bg.draw(ctx);
   player.draw(ctx);
@@ -45,13 +57,19 @@ function drawEverything(ctx) {
   drawLife(ctx)
   //drawScore(ctx)
   drawLevel(ctx)
+
 }
+
+
+
+
+
 
 function updateEverything() {
   frame++;
   // Change the speedFactor
-  speedFactor *= 1.00025;  // SPEEDDDDDD  
-
+  speedFactor *= 1.00022;  // SPEEDDDDDD  
+ 
   if (frame % framesBetweenBars === 0) {
     bars.push(new Bar());
   }
@@ -75,10 +93,12 @@ function updateEverything() {
   }
   
 
-
   // Check collisions
   for (let i = bars.length - 1; i >= 0; i--) {
     if (bars[i].checkCollision(player)) {
+      let audio = new Audio()
+      audio.src = "img/bar.mp3";
+      audio.play();
       console.log("COLLISION!!");
       bars.splice(i, 1);
       player.life -- // Remove the element at position i  
@@ -87,14 +107,15 @@ function updateEverything() {
 
   for (let i = bonus.length - 1; i >= 0; i--) {
     if (bonus[i].checkLife(player)) {
+      let audio = new Audio()
+      audio.src = "img/bonus.mp3";
+      audio.play();
       console.log("LIFE!!!");
       bonus.splice(i, 1);
       player.life ++ // Remove the element at position i  
     }
   }
-
   removeUselessBars();
-  
 }
 
 function drawLife(ctx) {
@@ -114,152 +135,222 @@ function drawScore(ctx) {
 }
 
 
+function drawEnd (ctx) {
+
+  
+  
+  ctx.save();
+  ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+  ctx.font = "60px Arial";
+  ctx.textAlign = "center";
+  ctx.fillStyle = "white";
+  ctx.fillText(`𝕐𝕆𝕌'𝕍𝔼 ℝ𝔼𝔸ℂℍ𝔼𝔻   ⊿ 𝕃𝔼𝕍𝔼𝕃  ${ levelNumber}`, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 10);
+  ctx.fillText("𝕋ℝ𝕐 𝔸𝔾𝔸𝕀ℕ", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 150);
+  ctx.fillText("↩", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 250);
+  ctx.font = "40px Arial";
+  ctx.fillText("𝕋ℍ𝔼 𝔾𝕆𝔸𝕃 𝕀𝕊 𝕋𝕆 ℝ𝔼𝔸ℂℍ 𝕃𝔼𝕍𝔼𝕃 𝟚𝟘", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 450);
+  ctx.restore();
+  
+  
+  
+  img = new Image();
+  img.src = "img/losangoBranco1.png";
+  
+  ctx.drawImage(img, 1100, 300);
+
+
+
+  document.onkeydown = event => {
+    event.preventDefault();
+    
+    if (event.keyCode == "13") {
+      
+      drawReset ()  
+    } 
+  }
+}
+
+
+function drawReset (){
+  audio.load();
+  audio.play();
+  frame = 0; 
+  score = 0;
+  bg = new Background();
+  player = new Player();
+  bars = [];
+  bonus = [new Bonus()]
+  framesBetweenBars = 7;
+  framesBetweenBonus = 60;
+  speedFactor = 1;
+}
+
 
 
 
 function drawLevel (ctx){
   if (score < 999){
+    levelNumber= "𝟙"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
-    ctx.fillText("⊿  𝕃𝔼𝕍𝔼𝕃 𝟙", CANVAS_WIDTH - 2100, 55);
+    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
   else if (score < 2000){
+    levelNumber= "𝟚"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
-    ctx.fillText("⊿  𝕃𝔼𝕍𝔼𝕃 𝟚", CANVAS_WIDTH - 2100, 55);
+    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
   else if (score < 3000){
+    levelNumber= "𝟛"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
-    ctx.fillText("⊿  𝕃𝔼𝕍𝔼𝕃 𝟛", CANVAS_WIDTH - 2100, 55);
+    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
   else if (score < 4000){
+    levelNumber= "𝟜"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
-    ctx.fillText("⊿  𝕃𝔼𝕍𝔼𝕃 𝟜", CANVAS_WIDTH - 2100, 55);
+    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
   else if (score < 5000){
+    levelNumber= "𝟝"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
-    ctx.fillText("⊿  𝕃𝔼𝕍𝔼𝕃 𝟝", CANVAS_WIDTH - 2100, 55);
+    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
   else if (score < 6000){
+    levelNumber= "𝟞"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
-    ctx.fillText("⊿  𝕃𝔼𝕍𝔼𝕃 𝟞", CANVAS_WIDTH - 2100, 55);
+    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
   else if (score < 7000){
+    levelNumber= "𝟟"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
-    ctx.fillText("⊿  𝕃𝔼𝕍𝔼𝕃 𝟟", CANVAS_WIDTH - 2100, 55);
+    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
   else if (score < 8000){
+    levelNumber= "𝟠"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
-    ctx.fillText("⊿  𝕃𝔼𝕍𝔼𝕃 𝟠", CANVAS_WIDTH - 2100, 55);
+    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
   else if (score < 9000){
+    levelNumber= "𝟡"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
-    ctx.fillText("⊿  𝕃𝔼𝕍𝔼𝕃 𝟡", CANVAS_WIDTH - 2100, 55);
+    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
   else if (score < 10000){
+    levelNumber= "𝟙𝟘"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
-    ctx.fillText("⊿  𝕃𝔼𝕍𝔼𝕃 𝟙𝟘", CANVAS_WIDTH - 2100, 55);
+    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
   else if (score < 11000){
+    levelNumber= "𝟙𝟙"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
-    ctx.fillText("⊿  𝕃𝔼𝕍𝔼𝕃 𝟙𝟙", CANVAS_WIDTH - 2100, 55);
+    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
   else if (score < 12000){
+    levelNumber= "𝟙𝟚"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
-    ctx.fillText("⊿  𝕃𝔼𝕍𝔼𝕃 𝟙𝟚", CANVAS_WIDTH - 2100, 55);
+    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
   else if (score < 13000){
+    levelNumber= "𝟙𝟛"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
-    ctx.fillText("⊿  𝕃𝔼𝕍𝔼𝕃 𝟙𝟛", CANVAS_WIDTH - 2100, 55);
+    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
   else if (score < 14000){
+    levelNumber= "𝟙𝟜"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
-    ctx.fillText("⊿  𝕃𝔼𝕍𝔼𝕃 𝟙𝟜", CANVAS_WIDTH - 2100, 55);
+    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
   else if (score < 15000){
+    levelNumber= "𝟙𝟝"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
-    ctx.fillText("⊿  𝕃𝔼𝕍𝔼𝕃 𝟙𝟝", CANVAS_WIDTH - 2100, 55);
+    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
   else if (score < 16000){
+    levelNumber= "𝟙𝟞"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
-    ctx.fillText("⊿  𝕃𝔼𝕍𝔼𝕃 𝟙𝟞", CANVAS_WIDTH - 2100, 55);
+    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
   else if (score < 17000){
+    levelNumber= "𝟙𝟟"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
-    ctx.fillText("⊿  𝕃𝔼𝕍𝔼𝕃 𝟙𝟟", CANVAS_WIDTH - 2100, 55);
+    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
   else if (score < 18000){
+    levelNumber= "𝟙𝟠"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
-    ctx.fillText("⊿  𝕃𝔼𝕍𝔼𝕃 𝟙𝟠", CANVAS_WIDTH - 2100, 55);
+    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
   else if (score < 19000){
+    levelNumber= "𝟙𝟡"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
-    ctx.fillText("⊿  𝕃𝔼𝕍𝔼𝕃 𝟙𝟡", CANVAS_WIDTH - 2100, 55);
+    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
   else if (score < 20000){
+    levelNumber= "𝟚𝟘"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
-    ctx.fillText("⊿  𝕃𝔼𝕍𝔼𝕃 𝟚𝟘", CANVAS_WIDTH - 2100, 55);
+    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
   score++
-  console.log(score)
+  
 }
 
 function removeUselessBars() {
@@ -270,56 +361,14 @@ function removeUselessBars() {
 
 
 
+//-------------------------------------------------------------------------------
 
 
-requestAnimationFrame(mainLoop);  // start when code below done.
-// set up keyboard IO
-const keys = {
-    KeyP : false,
-    Enter : false,
-    listener(e){
-       if(keys[e.code] !== undefined){
-           keys[e.code] = e.type === "keydown";
-           e.preventDefault();
-        }
-    }
-}
-addEventListener("keydown",keys.listener);
-addEventListener("keyup",keys.listener);
 
-// the current game state
-var currentState = startGame;
-
-function startGame (){
-    // code to do a single frame of start game
-   // display press enter to start
-   if(keys.Enter){
-      keys.Enter = false;
-      currentState = game;  // start the game
-   }
-}
-function pause(){
-    // code to do a single frame of pause
-   // display pause
-    if(keys.KeyP){
-       keys.KeyP = false; // turn off key
-       currentState = game;   // resume game
-    }
-
-}
-function game(){
-    // code to do a single frame of game
-    if(keys.KeyP){
-       keys.KeyP = false; // turn off key
-       currentState = pause;  // pause game
-    }
-}
-function mainLoop(time){
-    currentState(); // call the current game state
-    requestAnimationFrame(mainLoop);
-}
+//-------------------------------------------------------------------------------
 
 
+//-------------------------------------------------------------------------------
 
 
 

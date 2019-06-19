@@ -1,12 +1,12 @@
 class Player {
   constructor() {
-    this.radius = 30;
+    this.radius = 28;
     this.x = 200;
     this.y = 700;
     this.vx = 0;
     this.vy = 0;
     this.angle = 0;
-    this.life = 10;
+    this.life = 15;
 
     this.img = new Image();
     this.img.src = "img/losangoBranco.png";
@@ -15,10 +15,10 @@ class Player {
       event.preventDefault();
 
       if (event.keyCode == "38") {
-        this.vy = -PLAYER_VELOCITY;
+        this.vy = -7;
         // up arrow
       } else if (event.keyCode == "40") {
-        this.vy = PLAYER_VELOCITY;
+        this.vy = 7;
         // down arrow
       } else if (event.keyCode == "37") {
         this.vx = -PLAYER_VELOCITY;
@@ -54,9 +54,9 @@ class Player {
 
     if (DEBUG) {
       ctx.save();
-      ctx.globalAlpha = 0.2;
+      ctx.globalAlpha = 0.25;
       ctx.beginPath();
-      ctx.arc(this.x, this.y, 40, 0, 2 * Math.PI);
+      ctx.arc(this.x, this.y, 33, 0, 2 * Math.PI);
       ctx.fill();
       ctx.restore();
     }
