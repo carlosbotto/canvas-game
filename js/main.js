@@ -21,7 +21,7 @@ let bg = new Background();
 let player = new Player();
 let bars = [new Bar()];
 let bonus = [new Bonus()]
-let framesBetweenBars = 10;
+let framesBetweenBars = 9;
 let framesBetweenBonus = 50;
 //let levelNumber = "";
 let speedFactor = 1; // Example: When the speed factor is 2, the background and the bars are twice faster
@@ -33,12 +33,12 @@ audio1.src = "img/endExplosion.mp3";
 
 
 
-
-
-
 function animation() {
+  if (frame > 17500){
+    drawWin (ctx);
+  }
   //drawReset (ctx)
-  if(player.life >= 1) { 
+  else if(player.life >= 1) { 
   updateEverything();
   drawEverything(ctx)
   }
@@ -46,7 +46,11 @@ function animation() {
     drawEnd (ctx);
   }
   window.requestAnimationFrame(animation);
+
+  console.log(score)
+
 }
+
 animation();
 
 function drawEverything(ctx) {
@@ -178,6 +182,37 @@ function drawEnd (ctx) {
 }
 
 
+
+
+function drawWin (ctx) {
+
+  // audio.load();
+  // audio1.play();
+
+  ctx.save();
+  ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+  ctx.font = "100px Monospace";
+  ctx.textAlign = "center";
+  ctx.fillStyle = "white";
+  
+  ctx.fillText("𝕋ℝ𝕐 𝕋𝕆 𝕎𝕀ℕ 𝔸𝔾𝔸𝕀ℕ", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 20);
+  ctx.fillText("↩", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 220);
+  
+  
+  ctx.restore();
+  
+  ctx.drawImage(img, 1100, 300);
+  
+  document.onkeydown = event => {
+    event.preventDefault();
+    if (event.keyCode == "13") {
+      
+      drawReset ()  
+    } 
+  } 
+}
+
+
 function drawReset (){
   audio1.load();
  
@@ -198,7 +233,7 @@ function drawReset (){
 
 
 function drawLevel (ctx){
-  if (score < 999){
+  if (score < 899){
     levelNumber= "𝟙"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
@@ -206,7 +241,7 @@ function drawLevel (ctx){
     ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
-  else if (score < 2000){
+  else if (score < 1800){
     levelNumber= "𝟚"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
@@ -214,7 +249,7 @@ function drawLevel (ctx){
     ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
-  else if (score < 3000){
+  else if (score < 2700){
     levelNumber= "𝟛"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
@@ -222,7 +257,7 @@ function drawLevel (ctx){
     ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
-  else if (score < 4000){
+  else if (score < 3600){
     levelNumber= "𝟜"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
@@ -230,7 +265,7 @@ function drawLevel (ctx){
     ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
-  else if (score < 5000){
+  else if (score < 4500){
     levelNumber= "𝟝"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
@@ -238,7 +273,7 @@ function drawLevel (ctx){
     ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
-  else if (score < 6000){
+  else if (score < 5400){
     levelNumber= "𝟞"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
@@ -246,7 +281,7 @@ function drawLevel (ctx){
     ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
-  else if (score < 7000){
+  else if (score < 6300){
     levelNumber= "𝟟"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
@@ -254,7 +289,7 @@ function drawLevel (ctx){
     ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
-  else if (score < 8000){
+  else if (score < 7200){
     levelNumber= "𝟠"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
@@ -262,7 +297,7 @@ function drawLevel (ctx){
     ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
-  else if (score < 9000){
+  else if (score < 8100){
     levelNumber= "𝟡"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
@@ -270,7 +305,7 @@ function drawLevel (ctx){
     ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
-  else if (score < 10000){
+  else if (score < 9000){
     levelNumber= "𝟙𝟘"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
@@ -278,7 +313,7 @@ function drawLevel (ctx){
     ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
-  else if (score < 11000){
+  else if (score < 9900){
     levelNumber= "𝟙𝟙"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
@@ -286,7 +321,7 @@ function drawLevel (ctx){
     ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
-  else if (score < 12000){
+  else if (score < 10800){
     levelNumber= "𝟙𝟚"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
@@ -294,7 +329,7 @@ function drawLevel (ctx){
     ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
-  else if (score < 13000){
+  else if (score < 11700){
     levelNumber= "𝟙𝟛"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
@@ -302,7 +337,7 @@ function drawLevel (ctx){
     ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
-  else if (score < 14000){
+  else if (score < 12600){
     levelNumber= "𝟙𝟜"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
@@ -310,7 +345,7 @@ function drawLevel (ctx){
     ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
-  else if (score < 15000){
+  else if (score < 13500){
     levelNumber= "𝟙𝟝"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
@@ -318,7 +353,7 @@ function drawLevel (ctx){
     ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
-  else if (score < 16000){
+  else if (score < 14400){
     levelNumber= "𝟙𝟞"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
@@ -326,7 +361,7 @@ function drawLevel (ctx){
     ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
-  else if (score < 17000){
+  else if (score < 15300){
     levelNumber= "𝟙𝟟"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
@@ -334,7 +369,7 @@ function drawLevel (ctx){
     ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
-  else if (score < 18000){
+  else if (score < 16200){
     levelNumber= "𝟙𝟠"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
@@ -342,24 +377,22 @@ function drawLevel (ctx){
     ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
   }
-  else if (score < 19000){
+  else if (score < 17100){
     levelNumber= "𝟙𝟡"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
     ctx.font = "50px Arial";
     ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
     ctx.restore();
-  }
-  else if (score < 20000){
-    levelNumber= "𝟚𝟘"
+  }else if(score < 17500){
+    levelNumber= "𝕐𝕆𝕌 𝕎𝕀ℕ"
     ctx.save();
     ctx.fillStyle =  "rgb(149, 152, 156)";
-    ctx.font = "50px Arial";
-    ctx.fillText(`⊿  𝕃𝔼𝕍𝔼𝕃 ${levelNumber}`, CANVAS_WIDTH - 2100, 55);
-    ctx.restore();
+    ctx.font = "200px Arial";
+    ctx.fillText("⊿  𝕐𝕆𝕌 𝕎𝕀ℕ", CANVAS_WIDTH - 1800, 700);
+    ctx.restore(); 
   }
   score++
-  
 }
 
 function removeUselessBars() {
@@ -371,7 +404,6 @@ function removeUselessBars() {
 
 
 //-------------------------------------------------------------------------------
-
 
 
 //-------------------------------------------------------------------------------
