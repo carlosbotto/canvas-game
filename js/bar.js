@@ -5,7 +5,7 @@ class Bar {
     this.y = Math.floor(CANVAS_HEIGHT * Math.random()) + 100
     this.vx = -5; // Velocity y
 
-    let randomNumber = 1 + Math.floor(150 * Math.random());
+    let randomNumber = 1 + Math.floor(130 * Math.random());
     // this.img = new Image();
     // this.img.src = "img/fireball.png";
   }

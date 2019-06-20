@@ -12,7 +12,7 @@ class Bonus {
   }
 
 
-  draw(ctx) {
+  draw(ctx) { 
     ctx.save(); // Save the current context state
 
     ctx.fillStyle = "red";

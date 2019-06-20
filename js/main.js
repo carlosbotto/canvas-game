@@ -9,7 +9,7 @@ const ctx = canvas.getContext("2d");
 const CANVAS_WIDTH = canvas.width;
 const CANVAS_HEIGHT = canvas.height;
 const DEBUG = true;
-const PLAYER_VELOCITY = 10;
+const PLAYER_VELOCITY = 11;
 const NB_OF_STARS = 300;
 
 
@@ -21,13 +21,19 @@ let bg = new Background();
 let player = new Player();
 let bars = [new Bar()];
 let bonus = [new Bonus()]
-let framesBetweenBars = 7;
+let framesBetweenBars = 10;
 let framesBetweenBonus = 50;
 //let levelNumber = "";
 let speedFactor = 1; // Example: When the speed factor is 2, the background and the bars are twice faster
 let audio = new Audio()
 audio.src = "img/Tangerine Dream   Love On A Real Train New Version HD.mp3";
 audio.play();
+let audio1 = new Audio()
+audio1.src = "img/endExplosion.mp3";
+
+
+
+
 
 
 function animation() {
@@ -97,7 +103,7 @@ function updateEverything() {
   for (let i = bars.length - 1; i >= 0; i--) {
     if (bars[i].checkCollision(player)) {
       let audio = new Audio()
-      audio.src = "img/bar.mp3";
+      audio.src = "img/loseBar.mp3";
       audio.play();
       console.log("COLLISION!!");
       bars.splice(i, 1);
@@ -108,7 +114,7 @@ function updateEverything() {
   for (let i = bonus.length - 1; i >= 0; i--) {
     if (bonus[i].checkLife(player)) {
       let audio = new Audio()
-      audio.src = "img/bonus.mp3";
+      audio.src = "img/winLife.mp3";
       audio.play();
       console.log("LIFE!!!");
       bonus.splice(i, 1);
@@ -116,13 +122,14 @@ function updateEverything() {
     }
   }
   removeUselessBars();
+  
 }
 
 function drawLife(ctx) {
   ctx.save();
   ctx.fillStyle =  "rgb(149, 152, 156)";
   ctx.font = "50px Arial";
-  ctx.fillText("⊿  𝕃𝕀𝔽𝔼: " + "♢ ".repeat(player.life), CANVAS_WIDTH - 1540, 55);
+  ctx.fillText("⊿  𝕃𝕀𝔽𝔼: " + "♢ ".repeat(player.life), CANVAS_WIDTH - 1535, 55);
   ctx.restore();
 }
 
@@ -135,43 +142,45 @@ function drawScore(ctx) {
 }
 
 
+img = new Image();
+img.src = "img/losangoBranco1.png";
+
+var angleEnd = 0;
+
 function drawEnd (ctx) {
 
-  
-  
+  audio.load();
+  audio1.play();
+
   ctx.save();
   ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-  ctx.font = "60px Arial";
+  ctx.font = "60px Monospace";
   ctx.textAlign = "center";
   ctx.fillStyle = "white";
   ctx.fillText(`𝕐𝕆𝕌'𝕍𝔼 ℝ𝔼𝔸ℂℍ𝔼𝔻   ⊿ 𝕃𝔼𝕍𝔼𝕃  ${ levelNumber}`, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 10);
   ctx.fillText("𝕋ℝ𝕐 𝔸𝔾𝔸𝕀ℕ", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 150);
   ctx.fillText("↩", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 250);
-  ctx.font = "40px Arial";
-  ctx.fillText("𝕋ℍ𝔼 𝔾𝕆𝔸𝕃 𝕀𝕊 𝕋𝕆 ℝ𝔼𝔸ℂℍ 𝕃𝔼𝕍𝔼𝕃 𝟚𝟘", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 450);
+  ctx.font = "40px Monospace";
+  ctx.fillText("𝚃𝚑𝚎 𝚐𝚘𝚊𝚕 𝚒𝚜 𝚝𝚘 𝚊𝚟𝚘𝚒𝚍 𝚝𝚑𝚎 𝚋𝚊𝚛𝚜 𝚊𝚗𝚍 𝚌𝚘𝚕𝚕𝚎𝚌𝚝 ♢ 𝚕𝚒𝚟𝚎𝚜.", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 400);
+  ctx.fillText("𝙰𝚜 𝚝𝚒𝚖𝚎 𝚙𝚊𝚜𝚜𝚎𝚜 𝚝𝚑𝚎 𝚜𝚙𝚎𝚎𝚍 𝚒𝚗𝚌𝚛𝚎𝚊𝚜𝚎𝚜 𝚊𝚗𝚍 𝚎𝚟𝚎𝚛𝚢𝚝𝚑𝚒𝚗𝚐 𝚠𝚒𝚕𝚕 𝚋𝚎𝚌𝚘𝚖𝚎 𝚖𝚘𝚛𝚎 𝚍𝚒𝚏𝚏𝚒𝚌𝚞𝚕𝚝.", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 450);
+  ctx.fillText("𝚃𝚛𝚢 𝚝𝚘 𝚛𝚎𝚊𝚌𝚑 𝙻𝚎𝚟𝚎𝚕 𝟸𝟶.", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 500);
   ctx.restore();
   
-  
-  
-  img = new Image();
-  img.src = "img/losangoBranco1.png";
-  
   ctx.drawImage(img, 1100, 300);
-
-
-
+  
   document.onkeydown = event => {
     event.preventDefault();
-    
     if (event.keyCode == "13") {
       
       drawReset ()  
     } 
-  }
+  } 
 }
 
 
 function drawReset (){
+  audio1.load();
+ 
   audio.load();
   audio.play();
   frame = 0; 
