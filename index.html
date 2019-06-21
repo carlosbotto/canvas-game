@@ -7,19 +7,26 @@
   <!--<![endif]-->
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <title>ODYSSEY GAME</title>
     <meta
       name="description"
       content="A modern JS library for SVG path animation"
     />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
 
     <!-- css  -->
     <style>
-
       body,
       html {
-        
         width: 100%;
         height: 100%;
         top: 0;
@@ -29,13 +36,14 @@
         align-items: center;
         justify-content: center;
         background-color: black;
+        z-index: -1;
       }
 
       #title {
         position: relative;
         left: -25px;
         top: 14px;
-        overflow: visible;
+        /* overflow: visible; */
         color: white;
       }
 
@@ -47,14 +55,76 @@
         color: white;
       } */
 
-      
+      /* .btn {
+        color: grey;
+        position: absolute;
+        top: 70%;
+        left: 60vw;
+        z-index: 1;
+        border: 1px solid grey;
+      } */
+
+      /* .collapse {
+        top: 75%;
+        left: 70vw;
+      } */
 
       #losango {
         position: absolute;
         width: 70vw;
         height: 70vh;
-        
+        opacity: 0.7;
+
         overflow: visible;
+      }
+
+      .collapsible {
+        background-color:black;
+        color:rgb(149, 152, 156);
+        font-family: monospace;
+        /* background-color: #777;
+        color: white; */
+        cursor: pointer;
+        /* padding: 18px;
+        width: 100%; */
+        border-radius: 20px;
+        text-align: left;
+        /* outline: none; */
+        font-size: 15px;
+        /* color: grey; */
+        position: absolute;
+        top: 80%;
+        left: 60vw;
+        z-index: 1;
+        /* border: 1px solid grey; */
+      }
+
+      .active,
+      .collapsible:hover {
+        background-color: #555;
+        
+      }
+
+      .content {
+        
+        font-family: monospace;
+        font-size: 10px;
+        padding: px;
+        display: none;
+        overflow: hidden;
+        /* background-color: #f1f1f1; */
+        
+        position: absolute;
+        top: 69%;
+        
+        left: 60vw;
+      }
+
+      #instructions-p{
+        font-size:15px;
+        margin: 0px;
+        color:white;
+        padding-top: 14px;
       }
     </style>
 
@@ -72,7 +142,6 @@
 
             let el = document.querySelector("#losango");
             let myAnimation = new LazyLinePainter(el, {
-              
               ease: "easeLinear",
               strokeWidth: 15.7,
               strokeOpacity: 1,
@@ -86,9 +155,45 @@
         };
       })();
     </script>
+    <!-- <link rel="stylesheet" href="index.css">  -->
   </head>
 
-  <body event.keyCode = "13 = 'game.html'", onclick="window.location.href = 'game.html'">
+  <body>
+
+  <div>
+  <button class="collapsible">Instructions</button>
+  <div class="content">
+    <p id="instructions-p">use the arrow keys to navigate with the rover / <br />
+      avoid the bars and collect the ♢ lives / <br />
+      the goal is to reach level 20 / </p>
+  </div></div>
+
+
+
+
+
+
+
+    <!-- <p>
+      <a
+        class="btn btn-grey"
+        data-toggle="collapse"
+        href="#collapseExample"
+        role="button"
+        aria-expanded="false"
+        aria-controls="collapseExample"
+      >
+        Instructions
+      </a>
+    </p>
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
+        use the arrow keys to navigate with the rover <br />
+        avoid the bars and collect the X lives <br />
+        the goal is to reach level 20 <br />
+      </div>
+    </div> -->
+
     <svg
       version="1.0"
       id="losango"
@@ -102,7 +207,6 @@
       enable-background="new 0 0 1199.53 1199.529"
       xml:space="preserve"
       data-llp-composed="true"
-      
     >
       <g>
         <path
@@ -115,16 +219,47 @@
         />
       </g>
     </svg>
-    <h1 id="title">🅾🅳🆈🆂🆂🅴🆈</h1>
+    <h1 id="title"> 🅾 🅾  🅾🅳🆈🆂🆂🅴🆈</h1>
     <!-- <h3 id="subtitle">𝕋𝕙𝕖 𝕘𝕠𝕒𝕝 𝕚𝕤 𝕥𝕠 𝕒𝕧𝕠𝕚𝕕 𝕥𝕙𝕖 𝕓𝕒𝕣𝕤 𝕒𝕟𝕕 𝕔𝕠𝕝𝕝𝕖𝕔𝕥 𝕏 𝕝𝕚𝕧𝕖𝕤.
 𝔸𝕤 𝕥𝕚𝕞𝕖 𝕡𝕒𝕤𝕤𝕖𝕤 𝕥𝕙𝕖 𝕤𝕡𝕖𝕖𝕕 𝕚𝕟𝕔𝕣𝕖𝕒𝕤𝕖𝕤 𝕒𝕟𝕕 𝕖𝕧𝕖𝕣𝕪𝕥𝕙𝕚𝕟𝕘 𝕨𝕚𝕝𝕝 𝕓𝕖𝕔𝕠𝕞𝕖 𝕞𝕠𝕣𝕖 𝕕𝕚𝕗𝕗𝕚𝕔𝕦𝕝𝕥.
 𝕋𝕣𝕪 𝕥𝕠 𝕣𝕖𝕒𝕔𝕙 𝕃𝕖𝕧𝕖𝕝 𝟚𝟘.</h3> -->
-  <script>
-    window.onkeydown = e => {
-      if (e.keyCode === 13 || 32)
-        window.location.href = 'game.html'
-    }
-  </script>
-  
+    <script>
+      window.onkeydown = e => {
+        if (e.keyCode === 13 || 32) window.location.href = "game.html";
+      };
+    </script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+        
+        for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+              content.style.display = "none";
+            } else {
+              content.style.display = "block";
+            }
+          });
+        }
+        </script>
+
   </body>
 </html>
