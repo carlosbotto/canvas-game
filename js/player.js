@@ -6,7 +6,7 @@ class Player {
     this.vx = 0;
     this.vy = 0;
     this.angle = 0;
-    this.life = 15;
+    this.life = 5;
 
     this.img = new Image();
     this.img.src = "img/losangoBranco.png";

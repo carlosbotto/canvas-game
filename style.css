@@ -10,6 +10,8 @@ body {
 } 
 
 h2{
+  /* font-size: 27px; */
+  text-shadow: 5px 2px 5px white;
   margin-bottom: -5px;
 }
 
